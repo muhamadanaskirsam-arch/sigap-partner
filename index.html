@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGAP — Masa Depan Pemerintahan Dimulai dari Sini</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --off-white: #f0ede6;
+  --green: #1c7a50;
+  --green-light: #2ab572;
+  --green-dim: rgba(28,122,80,0.12);
+  --green-border: rgba(28,122,80,0.35);
+  --white-10: rgba(240,237,230,0.1);
+  --white-20: rgba(240,237,230,0.2);
+  --white-40: rgba(240,237,230,0.4);
+  --white-60: rgba(240,237,230,0.6);
+  --white-80: rgba(240,237,230,0.8);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--off-white);
+  font-family: 'Instrument Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* SCANLINE TEXTURE */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.2rem 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--white-10);
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(24px);
+}
+
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 0.8rem;
+  color: var(--white-40);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.nav-link:hover { color: var(--off-white); }
+
+.nav-cta {
+  font-size: 0.8rem;
+  background: var(--green);
+  color: var(--off-white);
+  padding: 0.55rem 1.25rem;
+  text-decoration: none;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover { background: var(--green-light); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 5% 5rem;
+  gap: 4rem;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.hero-left { max-width: 600px; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  margin-bottom: 2rem;
+}
+
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--green-light);
+}
+
+.hero-body {
+  font-size: 1.05rem;
+  color: var(--white-60);
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.btn-main {
+  background: var(--green);
+  color: var(--off-white);
+  padding: 0.85rem 1.8rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+  transition: background 0.2s;
+}
+
+.btn-main:hover { background: var(--green-light); }
+
+.btn-ghost {
+  border: 1px solid var(--white-20);
+  color: var(--off-white);
+  padding: 0.85rem 1.8rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+  transition: border-color 0.2s;
+}
+
+.btn-ghost:hover { border-color: var(--white-60); }
+
+.hero-proof {
+  display: flex;
+  gap: 2rem;
+}
+
+.proof-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.proof-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--off-white);
+}
+
+.proof-label {
+  font-size: 0.75rem;
+  color: var(--white-40);
+  letter-spacing: 0.05em;
+}
+
+/* HERO RIGHT — TERMINAL */
+.hero-right {
+  position: relative;
+}
+
+.terminal {
+  border: 1px solid var(--white-10);
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+.terminal-bar {
+  background: rgba(255,255,255,0.05);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.t-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+.t-red { background: #ff5f56; }
+.t-yellow { background: #ffbd2e; }
+.t-green { background: #27c93f; }
+
+.terminal-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--white-40);
+  margin-left: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 2;
+}
+
+.t-line { display: flex; gap: 0.75rem; }
+.t-prompt { color: var(--green-light); }
+.t-cmd { color: var(--off-white); }
+.t-out { color: var(--white-40); padding-left: 1rem; }
+.t-success { color: var(--green-light); padding-left: 1rem; }
+.t-blank { height: 0.5rem; }
+.t-cursor {
+  display: inline-block;
+  width: 8px; height: 14px;
+  background: var(--green-light);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ─── MANIFESTO ─── */
+.manifesto {
+  padding: 7rem 5%;
+  border-bottom: 1px solid var(--white-10);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.manifesto-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  padding-top: 0.5rem;
+}
+
+.manifesto-text {
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--white-80);
+}
+
+.manifesto-text strong {
+  color: var(--off-white);
+  font-weight: 500;
+}
+
+.manifesto-text .highlight {
+  color: var(--green-light);
+  font-style: italic;
+}
+
+/* ─── PROBLEM ─── */
+.problem-section {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  align-items: end;
+}
+
+h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.section-body {
+  font-size: 1rem;
+  color: var(--white-40);
+  line-height: 1.8;
+  font-weight: 300;
+  align-self: end;
+}
+
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.problem-card {
+  background: var(--black);
+  padding: 2rem;
+}
+
+.problem-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--white-20);
+  margin-bottom: 1rem;
+}
+
+.problem-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--off-white);
+}
+
+.problem-desc {
+  font-size: 0.85rem;
+  color: var(--white-40);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ─── SOLUTION / FEATURES ─── */
+.solution-section {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.features-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.feature-item {
+  background: var(--black);
+  padding: 2.5rem;
+  display: flex;
+  gap: 1.5rem;
+  transition: background 0.2s;
+}
+
+.feature-item:hover { background: var(--green-dim); }
+
+.feature-num-col {
+  flex-shrink: 0;
+}
+
+.feat-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--green-light);
+  letter-spacing: 0.15em;
+}
+
+.feat-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--off-white);
+}
+
+.feat-desc {
+  font-size: 0.85rem;
+  color: var(--white-40);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.feature-full {
+  grid-column: 1 / -1;
+  background: var(--black);
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  border-top: 1px solid var(--white-10);
+}
+
+.feature-full-left {
+  flex: 1;
+}
+
+.feature-full-right {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.roadmap-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.roadmap-phase {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--green-light);
+  letter-spacing: 0.15em;
+}
+
+.roadmap-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--off-white);
+}
+
+.roadmap-status {
+  font-size: 0.75rem;
+  color: var(--white-40);
+}
+
+.status-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--green-light);
+}
+
+.status-live::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+/* ─── POTENTIAL ─── */
+.potential-section {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+  background: linear-gradient(180deg, rgba(28,122,80,0.04) 0%, transparent 100%);
+}
+
+.potential-intro {
+  max-width: 700px;
+  margin-bottom: 5rem;
+}
+
+.potential-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.potential-card {
+  border: 1px solid var(--green-border);
+  padding: 2rem;
+  border-radius: 2px;
+  background: var(--green-dim);
+  transition: border-color 0.2s;
+}
+
+.potential-card:hover {
+  border-color: var(--green-light);
+}
+
+.pot-phase {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--green-light);
+  margin-bottom: 1rem;
+}
+
+.pot-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--off-white);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.pot-desc {
+  font-size: 0.85rem;
+  color: var(--white-60);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.pot-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pot-list li {
+  font-size: 0.8rem;
+  color: var(--white-40);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.pot-list li::before {
+  content: '↗';
+  color: var(--green-light);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+.vision-strip {
+  border: 1px solid var(--white-10);
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.vision-text {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.vision-text span { color: var(--green-light); }
+
+.vision-meta {
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.vision-meta-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--green-light);
+  display: block;
+}
+
+.vision-meta-label {
+  font-size: 0.75rem;
+  color: var(--white-40);
+}
+
+/* ─── PROOF / TRACTION ─── */
+.traction-section {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.traction-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.traction-quote {
+  border-left: 2px solid var(--green);
+  padding-left: 2rem;
+  margin-bottom: 3rem;
+}
+
+.quote-text {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--white-80);
+  margin-bottom: 1rem;
+}
+
+.quote-source {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--green-light);
+  letter-spacing: 0.1em;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tl-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.tl-item:last-child { border-bottom: none; }
+
+.tl-left {
+  flex-shrink: 0;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tl-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--green-light);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.tl-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 1px solid var(--green-light);
+  flex-shrink: 0;
+}
+
+.tl-body {}
+
+.tl-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--off-white);
+}
+
+.tl-desc {
+  font-size: 0.8rem;
+  color: var(--white-40);
+  font-weight: 300;
+}
+
+.stats-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.stat-block {
+  background: var(--black);
+  padding: 1.5rem;
+}
+
+.stat-block-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--off-white);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.stat-block-label {
+  font-size: 0.75rem;
+  color: var(--white-40);
+  font-weight: 300;
+}
+
+/* ─── TEAM ─── */
+.team-section {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.team-card {
+  background: var(--black);
+  padding: 2.5rem;
+  transition: background 0.25s;
+}
+
+.team-card:hover { background: rgba(255,255,255,0.02); }
+
+.team-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--green-light);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.team-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--green-light);
+  margin-bottom: 0.5rem;
+}
+
+.team-name {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--off-white);
+}
+
+.team-sub {
+  font-size: 0.8rem;
+  color: var(--white-40);
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+
+.team-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  font-size: 0.7rem;
+  border: 1px solid var(--white-10);
+  color: var(--white-40);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ─── PRICING ─── */
+.pricing-section {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.price-card {
+  background: var(--black);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.price-card.featured {
+  background: rgba(28,122,80,0.06);
+  border: 1px solid var(--green-border);
+}
+
+.price-tier {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--green-light);
+  margin-bottom: 1.5rem;
+}
+
+.price-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--off-white);
+  margin-bottom: 0.5rem;
+}
+
+.price-for {
+  font-size: 0.8rem;
+  color: var(--white-40);
+  margin-bottom: 2rem;
+  font-weight: 300;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.price-divider {
+  height: 1px;
+  background: var(--white-10);
+  margin-bottom: 1.5rem;
+}
+
+.price-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
+}
+
+.price-list li {
+  font-size: 0.82rem;
+  color: var(--white-60);
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.price-list li::before {
+  content: '→';
+  color: var(--green-light);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+.price-cta {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s;
+  margin-top: auto;
+}
+
+.price-cta-outline {
+  border: 1px solid var(--white-20);
+  color: var(--off-white);
+}
+
+.price-cta-outline:hover { border-color: var(--white-60); }
+
+.price-cta-fill {
+  background: var(--green);
+  color: var(--off-white);
+}
+
+.price-cta-fill:hover { background: var(--green-light); }
+
+/* ─── FINAL CTA ─── */
+.final-cta {
+  padding: 9rem 5%;
+  text-align: center;
+  position: relative;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px;
+  height: 6rem;
+  background: linear-gradient(to bottom, var(--white-10), transparent);
+}
+
+.final-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  margin-bottom: 2rem;
+}
+
+.final-cta h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.final-cta p {
+  font-size: 1rem;
+  color: var(--white-40);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+
+.final-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.contact-strip {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--white-20);
+  line-height: 2;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--white-10);
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--white-20);
+  letter-spacing: 0.1em;
+}
+
+.footer-right {
+  font-size: 0.75rem;
+  color: var(--white-20);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .manifesto { grid-template-columns: 1fr; gap: 1.5rem; }
+  .section-header { grid-template-columns: 1fr; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .features-layout { grid-template-columns: 1fr; }
+  .feature-full { flex-direction: column; }
+  .feature-full-right { grid-template-columns: 1fr 1fr; }
+  .potential-grid { grid-template-columns: 1fr; }
+  .traction-layout { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .vision-strip { flex-direction: column; text-align: center; }
+  .vision-meta { text-align: center; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-left > * {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+
+.hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+.hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+.hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+.hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+.hero-left > *:nth-child(5) { animation-delay: 0.7s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SIGAP ⬡ SYSTEM</div>
+  <div class="nav-right">
+    <a href="#fitur" class="nav-link">Fitur</a>
+    <a href="#potensi" class="nav-link">Potensi</a>
+    <a href="#tim" class="nav-link">Tim</a>
+    <a href="mailto:anas.kirsamnur@gmail.com" class="nav-cta">Jadwalkan Demo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      SISTEM AKTIF — PEMPROV SULAWESI TENGGARA
+    </div>
+    <h1>
+      Birokrasi yang<br>
+      <em>bergerak</em><br>
+      secepat keputusan.
+    </h1>
+    <p class="hero-body">
+      SIGAP bukan sekadar aplikasi. Ini adalah perubahan cara pemerintah bekerja —
+      dari tumpukan kertas dan menunggu hari, menjadi keputusan dalam menit
+      dengan kekuatan kecerdasan buatan.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:anas.kirsamnur@gmail.com" class="btn-main">Jadwalkan Demo 30 Menit →</a>
+      <a href="https://sigapsultra.id" target="_blank" class="btn-ghost">Lihat Sistem Live</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <span class="proof-num">Aktif</span>
+        <span class="proof-label">Pemprov Sultra</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-num">MOU</span>
+        <span class="proof-label">Kab. Batu, Jatim</span>
+      </div>
+      <div class="proof-item">
+        <span class="proof-num">40K+</span>
+        <span class="proof-label">Views Organik</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot t-red"></div>
+        <div class="t-dot t-yellow"></div>
+        <div class="t-dot t-green"></div>
+        <span class="terminal-title">sigap@sultra — meja-operasi</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">›</span><span class="t-cmd">sigap status --live</span></div>
+        <div class="t-line"><span class="t-out">✓ Portal aktif — 47 undangan masuk hari ini</span></div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">›</span><span class="t-cmd">ai extract KAK_rapat_gubernur.pdf</span></div>
+        <div class="t-line"><span class="t-out">⟳ Gemini AI memproses dokumen...</span></div>
+        <div class="t-line"><span class="t-success">✓ Executive Summary siap — 2.3 detik</span></div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">›</span><span class="t-cmd">disposisi --sign QR --notif all</span></div>
+        <div class="t-line"><span class="t-success">✓ Disposisi terkirim — terverifikasi & terarsip</span></div>
+        <div class="t-blank"></div>
+        <div class="t-line"><span class="t-prompt">›</span><span class="t-cmd">replicate --region batu-jatim</span></div>
+        <div class="t-line"><span class="t-out">⟳ Konfigurasi MOU dalam proses...</span></div>
+        <div class="t-line"><span class="t-prompt">›</span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-tag">// MENGAPA INI PENTING</div>
+  <div class="manifesto-text">
+    Setiap hari, <strong>ribuan surat undangan</strong> mengendap di meja birokrasi Indonesia. 
+    Setiap hari, <strong>pejabat menghabiskan waktu</strong> membaca dokumen yang bisa diringkas dalam detik. 
+    Setiap hari, <strong>masyarakat menunggu</strong> jawaban yang seharusnya sudah bisa diberikan kemarin.<br><br>
+    SIGAP lahir dari orang yang ada <span class="highlight">di dalam sistem</span> —
+    bukan dari konsultan yang datang dari luar dan pergi setelah proyek selesai.
+    Ini adalah inovasi yang dibangun oleh ASN, untuk ASN, 
+    dengan satu tujuan: <strong>pemerintah yang bergerak secepat kebutuhan rakyatnya.</strong>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section" id="masalah">
+  <div class="section-header">
+    <h2>Masalah yang<br>kita semua tahu<br>tapi belum diselesaikan.</h2>
+    <p class="section-body">
+      Bukan masalah SDM. Bukan masalah anggaran. 
+      Tapi masalah sistem yang belum pernah diperbarui 
+      sesuai dengan kecepatan kebutuhan zaman.
+    </p>
+  </div>
+  <div class="problems-grid">
+    <div class="problem-card">
+      <div class="problem-num">MASALAH 01</div>
+      <div class="problem-title">Birokrasi Kertas yang Lambat</div>
+      <p class="problem-desc">
+        Surat undangan masih dicetak, ditandatangani manual, dan dikurir fisik. 
+        Satu kesalahan = satu hari terbuang. Dokumen hilang = proses ulang dari awal.
+      </p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">MASALAH 02</div>
+      <div class="problem-title">Pimpinan Tanpa Konteks Cepat</div>
+      <p class="problem-desc">
+        Bupati atau Gubernur menerima ratusan dokumen per minggu. 
+        Tidak ada sistem yang meringkas esensi untuk pengambilan keputusan cepat — 
+        semua dibaca manual.
+      </p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">MASALAH 03</div>
+      <div class="problem-title">Transparansi yang Terbatas</div>
+      <p class="problem-desc">
+        Masyarakat dan instansi pengaju tidak tahu posisi dokumen mereka. 
+        "Masih diproses" adalah jawaban yang tidak memberi kepastian apapun.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION / FEATURES -->
+<section class="solution-section" id="fitur">
+  <div class="section-header">
+    <h2>Enam modul.<br>Satu ekosistem<br>yang bekerja.</h2>
+    <p class="section-body">
+      Setiap modul dirancang untuk menghapus satu titik gesekan 
+      dalam proses administrasi — bukan menambah kompleksitas baru.
+    </p>
+  </div>
+  <div class="features-layout">
+    <div class="feature-item">
+      <div class="feature-num-col"><div class="feat-num">M·01</div></div>
+      <div>
+        <div class="feat-title">Portal Pengajuan Digital</div>
+        <p class="feat-desc">Gerbang terenkripsi untuk transmisi undangan dan agenda. Formulir cerdas yang memvalidasi data sebelum masuk ke meja operasi.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num-col"><div class="feat-num">M·02</div></div>
+      <div>
+        <div class="feat-title">Ekstraksi Gemini AI</div>
+        <p class="feat-desc">Kecerdasan buatan Google membedah KAK dan menghasilkan Executive Summary dalam 3 detik. Pimpinan baca ringkasan, bukan dokumen 20 halaman.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num-col"><div class="feat-num">M·03</div></div>
+      <div>
+        <div class="feat-title">Disposisi Elektronik QR</div>
+        <p class="feat-desc">Setiap keputusan disposisi diterbitkan dengan QR code terverifikasi — autentik, tertelusur, sah secara administratif.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num-col"><div class="feat-num">M·04</div></div>
+      <div>
+        <div class="feat-title">Tracking Publik Real-Time</div>
+        <p class="feat-desc">Pemohon memantau posisi dokumen via kode tiket. Transparansi bukan slogan — tapi fitur yang bisa dicek kapan saja.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num-col"><div class="feat-num">M·05</div></div>
+      <div>
+        <div class="feat-title">Deteksi Konflik Jadwal</div>
+        <p class="feat-desc">Sistem validasi agenda otomatis yang mendeteksi tabrakan jadwal sebelum disposisi diterbitkan. Tidak ada lagi momen memalukan di depan tamu.</p>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-num-col"><div class="feat-num">M·06</div></div>
+      <div>
+        <div class="feat-title">Dashboard Kontrol Berlapis</div>
+        <p class="feat-desc">Akses terotorisasi per peran — Pimpinan, Ajudan, Staf, Administrator. Setiap aksi tercatat dalam log yang tidak bisa dimanipulasi.</p>
+      </div>
+    </div>
+    <div class="feature-full">
+      <div class="feature-full-left">
+        <div class="feat-num" style="margin-bottom:0.75rem;">ROADMAP PENGEMBANGAN</div>
+        <div class="feat-title" style="font-size:1.1rem; margin-bottom:0.5rem;">Ini baru awal.</div>
+        <p class="feat-desc" style="max-width:380px;">
+          SIGAP dirancang sebagai platform terbuka yang tumbuh bersama kebutuhan daerah. 
+          Empat modul berikutnya sudah dalam pipeline pengembangan.
+        </p>
+      </div>
+      <div class="feature-full-right">
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q3 2026</div>
+          <div class="roadmap-title">Integrasi e-Signature Resmi</div>
+          <div class="roadmap-status"><span class="status-live">Live</span> — Modul 01–06</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q4 2026</div>
+          <div class="roadmap-title">Analitik Beban Kerja ASN</div>
+          <div class="roadmap-status" style="color:var(--white-40);">Dalam pengembangan</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q1 2027</div>
+          <div class="roadmap-title">Chatbot Informasi Publik AI</div>
+          <div class="roadmap-status" style="color:var(--white-40);">Pipeline</div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q2 2027</div>
+          <div class="roadmap-title">Integrasi SIPD & SIMPEG</div>
+          <div class="roadmap-status" style="color:var(--white-40);">Pipeline</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POTENTIAL -->
+<section class="potential-section" id="potensi">
+  <div class="potential-intro">
+    <div class="eyebrow" style="margin-bottom:1.5rem;">
+      <span class="eyebrow-dot"></span>
+      VISI EKOSISTEM
+    </div>
+    <h2 style="margin-bottom:1rem;">Lebih dari digitalisasi.<br>Ini fondasi<br>pemerintahan masa depan.</h2>
+    <p class="section-body" style="max-width:100%;">
+      SIGAP bukan hanya tentang mengurus undangan lebih cepat. 
+      Ini adalah infrastruktur yang — jika dibangun dengan benar — 
+      akan mengubah cara seluruh ekosistem pemerintahan daerah beroperasi, 
+      berkolaborasi, dan melayani.
+    </p>
+  </div>
+
+  <div class="potential-grid">
+    <div class="potential-card">
+      <div class="pot-phase">POTENSI 01 — JANGKA PENDEK</div>
+      <div class="pot-title">Platform Administrasi Terpadu Daerah</div>
+      <p class="pot-desc">
+        Dari satu modul undangan, SIGAP bisa berkembang menjadi 
+        pusat kendali administrasi penuh — mengelola seluruh surat masuk, 
+        disposisi, dan arsip digital dalam satu ekosistem.
+      </p>
+      <ul class="pot-list">
+        <li>Manajemen surat masuk & keluar digital</li>
+        <li>Arsip dokumen terstruktur berbasis AI</li>
+        <li>Integrasi dengan sistem kepegawaian daerah</li>
+        <li>Dashboard kinerja layanan publik</li>
+      </ul>
+    </div>
+    <div class="potential-card">
+      <div class="pot-phase">POTENSI 02 — JANGKA MENENGAH</div>
+      <div class="pot-title">GovTech Network Antar Daerah</div>
+      <p class="pot-desc">
+        Setiap daerah yang mengadopsi SIGAP berpotensi terhubung 
+        dalam jaringan pemerintahan digital — berbagi data, 
+        standarisasi proses, dan kolaborasi lintas kabupaten/kota.
+      </p>
+      <ul class="pot-list">
+        <li>API terbuka untuk integrasi antar daerah</li>
+        <li>Standar administrasi digital bersama</li>
+        <li>Forum inovasi pemerintahan antar pengguna</li>
+        <li>Model bisnis SaaS yang berkelanjutan</li>
+      </ul>
+    </div>
+    <div class="potential-card">
+      <div class="pot-phase">POTENSI 03 — JANGKA PANJANG</div>
+      <div class="pot-title">Infrastruktur Demokrasi Digital</div>
+      <p class="pot-desc">
+        Ketika data administrasi pemerintahan terdigitalisasi penuh, 
+        ia menjadi fondasi untuk akuntabilitas publik, partisipasi warga, 
+        dan tata kelola yang transparan secara struktural.
+      </p>
+      <ul class="pot-list">
+        <li>Portal aspirasi dan aduan warga terintegrasi</li>
+        <li>Laporan kinerja pemerintah berbasis data real</li>
+        <li>Audit trail publik yang tidak bisa dimanipulasi</li>
+        <li>Fondasi smart city untuk daerah berkembang</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="vision-strip">
+    <div class="vision-text">
+      Bayangkan <span>500 kabupaten/kota</span> di Indonesia<br>
+      terhubung dalam satu standar<br>
+      administrasi digital yang manusiawi.
+    </div>
+    <div class="vision-meta">
+      <span class="vision-meta-num">514</span>
+      <span class="vision-meta-label">Kabupaten/Kota di Indonesia<br>yang bisa dijangkau</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRACTION -->
+<section class="traction-section">
+  <div class="section-header">
+    <h2>Bukan janji.<br>Ini yang sudah<br>terjadi.</h2>
+    <p class="section-body">
+      Kepercayaan tidak dibangun dari pitch deck — 
+      tapi dari bukti yang sudah bisa diperiksa sendiri.
+    </p>
+  </div>
+  <div class="traction-layout">
+    <div>
+      <div class="traction-quote">
+        <p class="quote-text">
+          Inovasi ini membuktikan bahwa perubahan tidak harus datang dari atas —
+          seorang ASN muda yang paham teknologi dan paham birokrasi 
+          bisa membangun sistem yang dibutuhkan dari dalam.
+        </p>
+        <div class="quote-source">— RESPONS KOLEKTIF / PURNA IPDN & ASN LINTAS PROVINSI</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-date">2025</div>
+            <div class="tl-dot"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Pembangunan SIGAP dari Nol</div>
+            <p class="tl-desc">Dibangun oleh ASN aktif Setda Pemprov Sultra menggunakan Laravel, Filament, Livewire, dan Gemini AI — sambil menjalankan tugas keprotokolan penuh.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-date">2025</div>
+            <div class="tl-dot"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Implementasi di Pemprov Sulawesi Tenggara</div>
+            <p class="tl-desc">Sistem aktif berjalan di Setda Provinsi. Proses administrasi keprotokolan terdigitalisasi penuh untuk pertama kalinya.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-date">2026</div>
+            <div class="tl-dot"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Viral Organik — 40.3K Views</div>
+            <p class="tl-desc">Video dokumentasi sistem meledak secara organik di TikTok. Mendapat respons dari ASN, purna IPDN, dan akademisi di seluruh Indonesia.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-date">2026</div>
+            <div class="tl-dot"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Inisiasi MOU — Kabupaten Batu, Jawa Timur</div>
+            <p class="tl-desc">Pemerintah Kabupaten Batu menginisiasi penjajakan MOU untuk adopsi dan replikasi sistem SIGAP di wilayah mereka.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-stack">
+      <div class="stat-block">
+        <span class="stat-block-num">1 Provinsi</span>
+        <span class="stat-block-label">Implementasi aktif — Sulawesi Tenggara</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-block-num">MOU Pending</span>
+        <span class="stat-block-label">Kabupaten Batu, Jawa Timur</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-block-num">40.3K+</span>
+        <span class="stat-block-label">Views organik tanpa iklan berbayar</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-block-num">3 Detik</span>
+        <span class="stat-block-label">Waktu ekstraksi AI per dokumen</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-block-num">0 Kertas</span>
+        <span class="stat-block-label">Proses administrasi sepenuhnya digital</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-block-num">Laravel + AI</span>
+        <span class="stat-block-label">Stack modern, aman, dan skalabel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="tim">
+  <div class="section-header">
+    <h2>Tim yang<br>membangun ini<br>dari dalam.</h2>
+    <p class="section-body">
+      Bukan vendor eksternal. Bukan konsultan yang datang saat proyek dan pergi setelahnya.
+      Tim yang memahami birokrasi karena hidup di dalamnya setiap hari —
+      dan yang memahami pasar karena membangun bisnis di ekosistem yang sama.
+    </p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">LA</div>
+      <div class="team-role">FOUNDER & SYSTEM ARCHITECT</div>
+      <div class="team-name">La Anas — Muhamad Anas Kirsam Nur</div>
+      <div class="team-sub">ASN · Penata Keprotokolan Setda Prov. Sultra · Alumni IPDN Angkatan 32</div>
+      <div class="team-tags">
+        <span class="tag">GovTech</span>
+        <span class="tag">Laravel</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Birokrasi</span>
+        <span class="tag">HIPMI PT Sultra</span>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">RK</div>
+      <div class="team-role">CO-FOUNDER & TECHNICAL ADVISOR</div>
+      <div class="team-name">Rifki</div>
+      <div class="team-sub">Alumni IPDN · ASN Setda Kabupaten Buton Selatan</div>
+      <div class="team-tags">
+        <span class="tag">Pemerintahan</span>
+        <span class="tag">Administrasi</span>
+        <span class="tag">Validasi Lapangan</span>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">MS</div>
+      <div class="team-role">MARKETING & GROWTH STRATEGIST</div>
+      <div class="team-name">Open Position</div>
+      <div class="team-sub">Bergabunglah sebagai mitra strategis ekspansi SIGAP ke seluruh Indonesia</div>
+      <div class="team-tags">
+        <span class="tag">B2B Sales</span>
+        <span class="tag">Gov Relations</span>
+        <span class="tag">Ekspansi Daerah</span>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">BD</div>
+      <div class="team-role">BRAND & NARRATIVE STRATEGIST</div>
+      <div class="team-name">Open Position</div>
+      <div class="team-sub">Membangun narasi SIGAP sebagai gerakan inovasi pemerintahan, bukan sekadar produk teknologi</div>
+      <div class="team-tags">
+        <span class="tag">Branding</span>
+        <span class="tag">Storytelling</span>
+        <span class="tag">Public Affairs</span>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">PD</div>
+      <div class="team-role">PRODUCT DEVELOPER</div>
+      <div class="team-name">Open Position</div>
+      <div class="team-sub">Engineer yang memahami konteks pemerintahan dan mampu membangun untuk skala nasional</div>
+      <div class="team-tags">
+        <span class="tag">Full-Stack</span>
+        <span class="tag">AI Integration</span>
+        <span class="tag">SaaS</span>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">RP</div>
+      <div class="team-role">REGIONAL PARTNERSHIP</div>
+      <div class="team-name">Open Position</div>
+      <div class="team-sub">Mitra jaringan daerah yang membantu adopsi SIGAP di kabupaten/kota wilayah kerja masing-masing</div>
+      <div class="team-tags">
+        <span class="tag">Jaringan Daerah</span>
+        <span class="tag">Implementasi</span>
+        <span class="tag">ASN Network</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <div class="section-header">
+    <h2>Investasi yang<br>mengubah cara<br>daerah bekerja.</h2>
+    <p class="section-body">
+      Tiga jalur kemitraan yang dirancang sesuai kapasitas dan ambisi daerah.
+      Semua harga dapat didiskusikan dan disesuaikan dengan APBD daerah.
+    </p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">KEMITRAAN 01</div>
+      <div class="price-name">Pilot</div>
+      <div class="price-for">
+        Untuk satu SKPD atau unit kerja. 
+        Uji dampak nyata sebelum adopsi menyeluruh. 
+        Ideal untuk daerah yang ingin melihat bukti sebelum berkomitmen.
+      </div>
+      <div class="price-divider"></div>
+      <ul class="price-list">
+        <li>Instalasi dan konfigurasi sistem penuh</li>
+        <li>Kustomisasi identitas visual daerah</li>
+        <li>Training tim administrator (2 hari intensif)</li>
+        <li>Pendampingan teknis 3 bulan pertama</li>
+        <li>Laporan evaluasi dan rekomendasi</li>
+        <li>Akses update sistem selama periode pilot</li>
+      </ul>
+      <a href="mailto:anas.kirsamnur@gmail.com" class="price-cta price-cta-outline">Diskusi Lebih Lanjut</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier">KEMITRAAN 02 — DIREKOMENDASIKAN</div>
+      <div class="price-name">Full Adopsi</div>
+      <div class="price-for">
+        Untuk seluruh Setda, Pemerintah Kabupaten, atau Pemerintah Kota.
+        Transformasi administrasi yang menyeluruh dan berkelanjutan.
+      </div>
+      <div class="price-divider"></div>
+      <ul class="price-list">
+        <li>Implementasi semua 6 modul aktif</li>
+        <li>Kustomisasi penuh — branding, alur kerja, peran pengguna</li>
+        <li>Training komprehensif semua level staf</li>
+        <li>Pendampingan teknis 12 bulan</li>
+        <li>Pengembangan fitur khusus kebutuhan daerah</li>
+        <li>SLA uptime 99.5% dengan monitoring aktif</li>
+        <li>Prioritas akses fitur baru</li>
+        <li>Penamaan daerah sebagai mitra inovasi nasional</li>
+      </ul>
+      <a href="mailto:anas.kirsamnur@gmail.com" class="price-cta price-cta-fill">Jadwalkan Demo Sekarang</a>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">KEMITRAAN 03</div>
+      <div class="price-name">Strategic Hub</div>
+      <div class="price-for">
+        Untuk daerah yang ingin menjadi pusat inovasi pemerintahan 
+        di kawasannya — dan berperan dalam membentuk masa depan GovTech Indonesia.
+      </div>
+      <div class="price-divider"></div>
+      <ul class="price-list">
+        <li>Semua yang ada di Full Adopsi</li>
+        <li>Hak pengembangan bersama fitur baru</li>
+        <li>Co-branding ekosistem SIGAP nasional</li>
+        <li>Akses jaringan replikasi antar daerah</li>
+        <li>Dedicated tim teknis on-call</li>
+        <li>Fasilitasi MOU dengan daerah sekitar</li>
+        <li>Posisi sebagai referensi nasional inovasi pemerintahan</li>
+      </ul>
+      <a href="mailto:anas.kirsamnur@gmail.com" class="price-cta price-cta-outline">Diskusi Kemitraan</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-eyebrow">// SAATNYA BERGERAK</div>
+  <h2>Daerah Anda<br>bisa jadi<br>yang berikutnya.</h2>
+  <p>
+    Demo 30 menit. Sistem nyata. Tanpa presentasi PDF yang penuh janji.
+    Kami tunjukkan langsung bagaimana SIGAP akan bekerja di daerah Anda.
+  </p>
+  <div class="final-actions">
+    <a href="mailto:anas.kirsamnur@gmail.com" class="btn-main">Jadwalkan Demo →</a>
+    <a href="https://sigapsultra.id" target="_blank" class="btn-ghost">Akses Sistem Live</a>
+  </div>
+  <div class="contact-strip">
+    La Anas — Penata Keprotokolan Setda Provinsi Sulawesi Tenggara<br>
+    Alumni IPDN Angkatan 32 · HIPMI PT Sultra<br>
+    anas.kirsamnur@gmail.com · @anas.kirsamnur · sigapsultra.id
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">SIGAP SULTRA © 2026 — INOVASI DARI DALAM SISTEM</div>
+  <div class="footer-right">Pemerintah Provinsi Sulawesi Tenggara</div>
+</footer>
+
+</body>
+</html>
