@@ -282,6 +282,27 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
 #toast{position:fixed;bottom:2rem;right:2rem;background:#1C7A50;color:#fff;padding:0.75rem 1.25rem;border-radius:8px;font-size:0.85rem;font-weight:500;opacity:0;transition:opacity 0.3s;z-index:9999;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
 #toast.show{opacity:1}
 
+/* Notification dropdown */
+.notif-count-badge{position:absolute;top:-5px;right:-5px;background:#EF4444;color:#fff;font-size:0.55rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid #fff}
+.notif-dropdown{position:absolute;top:calc(100% + 8px);right:-8px;width:285px;background:#fff;border:1px solid #E5E7EB;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:500;display:none}
+.notif-dropdown.open{display:block}
+.notif-dropdown-head{padding:0.6rem 0.85rem;border-bottom:1px solid #E5E7EB;font-size:0.78rem;font-weight:600;color:#1A1A1A}
+.notif-dropdown-item{padding:0.7rem 0.85rem;border-bottom:1px solid #F3F4F6;cursor:pointer;display:flex;align-items:flex-start;gap:0.6rem;transition:background 0.15s}
+.notif-dropdown-item:last-child{border-bottom:none}
+.notif-dropdown-item:hover{background:#F9FAFB}
+.notif-di-icon{font-size:0.85rem;flex-shrink:0;margin-top:0.05rem}
+.notif-di-text{font-size:0.75rem;line-height:1.45}
+.notif-di-red{color:#991B1B}
+.notif-di-green{color:#065F46}
+.notif-di-blue{color:#1E40AF}
+/* Date range filter */
+.date-range-filter{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.date-range-label{font-size:0.75rem;color:#6B7280;flex-shrink:0}
+.date-input{padding:0.4rem 0.65rem;border:1px solid #E5E7EB;border-radius:5px;font-size:0.78rem;font-family:'DM Sans',sans-serif;color:#374151;outline:none;transition:border-color 0.15s}
+.date-input:focus{border-color:#1C7A50}
+.btn-reset{padding:0.4rem 0.85rem;border-radius:20px;border:1px solid #D1D5DB;background:#9CA3AF;color:#fff;font-size:0.78rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:background 0.2s}
+.btn-reset:hover{background:#6B7280}
+
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   .hero{grid-template-columns:1fr;padding-top:6rem}
@@ -536,8 +557,21 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
       <div class="dash-topbar">
         <div class="dash-topbar-title" id="topbar-title">Dashboard</div>
         <div class="dash-topbar-right">
-          <div class="dash-badge">IMIPAS Kendari</div>
-          <div class="dash-notif-btn">🔔<div class="dash-notif-dot"></div></div>
+          <div class="dash-badge">IMIPAS</div>
+          <div class="dash-notif-btn" id="notif-btn" onclick="toggleNotifDropdown(event)">🔔<span class="notif-count-badge" id="notif-count-badge">3</span>
+            <div class="notif-dropdown" id="notif-dropdown">
+              <div class="notif-dropdown-head">Notifikasi</div>
+              <div class="notif-dropdown-item" onclick="event.stopPropagation();showToast('SM-002 belum diproses — harap segera ditindaklanjuti')">
+                <span class="notif-di-icon">🔴</span><div class="notif-di-text notif-di-red">Surat SM-002 belum diproses — sudah 2 hari</div>
+              </div>
+              <div class="notif-dropdown-item" onclick="event.stopPropagation();showToast('Disposisi dari Kalapas untuk SM-001 sudah diterbitkan')">
+                <span class="notif-di-icon">✅</span><div class="notif-di-text notif-di-green">Disposisi dari Kalapas untuk SM-001 sudah diterbitkan</div>
+              </div>
+              <div class="notif-dropdown-item" onclick="event.stopPropagation();showToast('Surat keluar SK-005 berhasil dikirim dan diarsip')">
+                <span class="notif-di-icon">📤</span><div class="notif-di-text notif-di-blue">Surat keluar SK-005 berhasil dikirim dan diarsip</div>
+              </div>
+            </div>
+          </div>
           <div class="dash-av">NV</div>
         </div>
       </div>
@@ -607,18 +641,26 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
             <button class="filter-btn" data-filter="diproses" onclick="filterSuratMasuk('diproses',this)">Diproses</button>
             <button class="filter-btn" data-filter="selesai" onclick="filterSuratMasuk('selesai',this)">Selesai</button>
           </div>
+          <div class="date-range-filter">
+            <span class="date-range-label">Dari Tanggal</span>
+            <input type="date" class="date-input" id="dari-surat-masuk">
+            <span class="date-range-label">Sampai Tanggal</span>
+            <input type="date" class="date-input" id="sampai-surat-masuk">
+            <button class="btn-primary btn-sm" onclick="applyDateFilter('surat-masuk')">Terapkan Filter</button>
+            <button class="btn-reset" onclick="resetDateFilter('surat-masuk')">Reset</button>
+          </div>
           <div class="dash-table-wrap">
             <table>
               <thead><tr><th>No</th><th>Perihal</th><th>Pengirim</th><th>Jalur</th><th>Tanggal</th><th>Status</th></tr></thead>
               <tbody id="tbl-surat-masuk">
-                <tr data-status="diproses"><td>SM-001</td><td class="cell-bold">Undangan Rapat Koordinasi Kanwil</td><td>Kanwil Sultra</td><td>TU</td><td>20 Mei 2026</td><td><span class="pill pill-process">Diproses</span></td></tr>
-                <tr data-status="belum"><td>SM-002</td><td class="cell-bold">Permintaan Data Narapidana</td><td>Univ. Halu Oleo</td><td>TU</td><td>20 Mei 2026</td><td><span class="pill pill-new">Belum Diproses</span></td></tr>
-                <tr data-status="selesai"><td>SM-003</td><td class="cell-bold">Surat Keputusan Pengangkatan Staf</td><td>Kanwil Kemenkumham</td><td>P2U</td><td>19 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr data-status="belum"><td>SM-004</td><td class="cell-bold">Permohonan Cuti Pegawai — 3 Hari</td><td>Budi Santoso</td><td>TU</td><td>19 Mei 2026</td><td><span class="pill pill-new">Belum Diproses</span></td></tr>
-                <tr data-status="selesai"><td>SM-005</td><td class="cell-bold">Nota Dinas Koordinasi Program</td><td>Kasubsi Binadik</td><td>P2U</td><td>18 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr data-status="diproses"><td>SM-006</td><td class="cell-bold">Surat Rekomendasi Penelitian</td><td>Univ. Sultra</td><td>TU</td><td>17 Mei 2026</td><td><span class="pill pill-process">Diproses</span></td></tr>
-                <tr data-status="selesai"><td>SM-007</td><td class="cell-bold">Undangan Sosialisasi Peraturan Baru</td><td>Ditjen Pemasyarakatan</td><td>P2U</td><td>16 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr data-status="belum"><td>SM-008</td><td class="cell-bold">Permohonan Kunjungan Keluarga WBP</td><td>Keluarga WBP</td><td>P2U</td><td>15 Mei 2026</td><td><span class="pill pill-new">Belum Diproses</span></td></tr>
+                <tr data-status="diproses" data-date="2026-05-20"><td>SM-001</td><td class="cell-bold">Undangan Rapat Koordinasi Kanwil</td><td>Kanwil Sultra</td><td>TU</td><td>20 Mei 2026</td><td><span class="pill pill-process">Diproses</span></td></tr>
+                <tr data-status="belum" data-date="2026-05-20"><td>SM-002</td><td class="cell-bold">Permintaan Data Narapidana</td><td>Univ. Halu Oleo</td><td>TU</td><td>20 Mei 2026</td><td><span class="pill pill-new">Belum Diproses</span></td></tr>
+                <tr data-status="selesai" data-date="2026-05-19"><td>SM-003</td><td class="cell-bold">Surat Keputusan Pengangkatan Staf</td><td>Kanwil Kemenkumham</td><td>P2U</td><td>19 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-status="belum" data-date="2026-05-19"><td>SM-004</td><td class="cell-bold">Permohonan Cuti Pegawai — 3 Hari</td><td>Budi Santoso</td><td>TU</td><td>19 Mei 2026</td><td><span class="pill pill-new">Belum Diproses</span></td></tr>
+                <tr data-status="selesai" data-date="2026-05-18"><td>SM-005</td><td class="cell-bold">Nota Dinas Koordinasi Program</td><td>Kasubsi Binadik</td><td>P2U</td><td>18 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-status="diproses" data-date="2026-05-17"><td>SM-006</td><td class="cell-bold">Surat Rekomendasi Penelitian</td><td>Univ. Sultra</td><td>TU</td><td>17 Mei 2026</td><td><span class="pill pill-process">Diproses</span></td></tr>
+                <tr data-status="selesai" data-date="2026-05-16"><td>SM-007</td><td class="cell-bold">Undangan Sosialisasi Peraturan Baru</td><td>Ditjen Pemasyarakatan</td><td>P2U</td><td>16 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-status="belum" data-date="2026-05-15"><td>SM-008</td><td class="cell-bold">Permohonan Kunjungan Keluarga WBP</td><td>Keluarga WBP</td><td>P2U</td><td>15 Mei 2026</td><td><span class="pill pill-new">Belum Diproses</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -630,16 +672,24 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
             <div class="view-title">Daftar Surat Keluar</div>
             <button class="btn-primary btn-sm" onclick="openModal('modal-surat-keluar')">+ Buat Surat Keluar</button>
           </div>
+          <div class="date-range-filter">
+            <span class="date-range-label">Dari Tanggal</span>
+            <input type="date" class="date-input" id="dari-surat-keluar">
+            <span class="date-range-label">Sampai Tanggal</span>
+            <input type="date" class="date-input" id="sampai-surat-keluar">
+            <button class="btn-primary btn-sm" onclick="applyDateFilter('surat-keluar')">Terapkan Filter</button>
+            <button class="btn-reset" onclick="resetDateFilter('surat-keluar')">Reset</button>
+          </div>
           <div class="dash-table-wrap">
             <table>
               <thead><tr><th>No</th><th>Perihal</th><th>Tujuan</th><th>Tanggal</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>SK-001</td><td class="cell-bold">Laporan Kegiatan Pembinaan WBP</td><td>Kanwil Sultra</td><td>19 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr><td>SK-002</td><td class="cell-bold">Surat Tugas Kunjungan Kerja</td><td>Ditjen Pemasyarakatan</td><td>18 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr><td>SK-003</td><td class="cell-bold">Undangan Rapat Internal IMIPAS</td><td>Seluruh Pegawai</td><td>17 Mei 2026</td><td><span class="pill pill-process">Diproses</span></td></tr>
-                <tr><td>SK-004</td><td class="cell-bold">Nota Dinas Evaluasi Bulanan</td><td>Kasubsi Terkait</td><td>15 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr><td>SK-005</td><td class="cell-bold">Laporan Data Penghuni Per Bulan</td><td>Kanwil Kemenkumham</td><td>14 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
-                <tr><td>SK-006</td><td class="cell-bold">Surat Permohonan Anggaran Kegiatan</td><td>Kantor Pusat</td><td>12 Mei 2026</td><td><span class="pill pill-new">Baru</span></td></tr>
+              <tbody id="tbl-surat-keluar">
+                <tr data-date="2026-05-19"><td>SK-001</td><td class="cell-bold">Laporan Kegiatan Pembinaan WBP</td><td>Kanwil Sultra</td><td>19 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-date="2026-05-18"><td>SK-002</td><td class="cell-bold">Surat Tugas Kunjungan Kerja</td><td>Ditjen Pemasyarakatan</td><td>18 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-date="2026-05-17"><td>SK-003</td><td class="cell-bold">Undangan Rapat Internal IMIPAS</td><td>Seluruh Pegawai</td><td>17 Mei 2026</td><td><span class="pill pill-process">Diproses</span></td></tr>
+                <tr data-date="2026-05-15"><td>SK-004</td><td class="cell-bold">Nota Dinas Evaluasi Bulanan</td><td>Kasubsi Terkait</td><td>15 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-date="2026-05-14"><td>SK-005</td><td class="cell-bold">Laporan Data Penghuni Per Bulan</td><td>Kanwil Kemenkumham</td><td>14 Mei 2026</td><td><span class="pill pill-done">Selesai</span></td></tr>
+                <tr data-date="2026-05-12"><td>SK-006</td><td class="cell-bold">Surat Permohonan Anggaran Kegiatan</td><td>Kantor Pusat</td><td>12 Mei 2026</td><td><span class="pill pill-new">Baru</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -651,8 +701,16 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
             <div class="view-title">Surat Menunggu Disposisi</div>
             <span class="pill pill-new">5 Menunggu</span>
           </div>
+          <div class="date-range-filter">
+            <span class="date-range-label">Dari Tanggal</span>
+            <input type="date" class="date-input" id="dari-disposisi">
+            <span class="date-range-label">Sampai Tanggal</span>
+            <input type="date" class="date-input" id="sampai-disposisi">
+            <button class="btn-primary btn-sm" onclick="applyDateFilter('disposisi')">Terapkan Filter</button>
+            <button class="btn-reset" onclick="resetDateFilter('disposisi')">Reset</button>
+          </div>
           <div class="disp-list">
-            <div class="disp-item" id="disp-item-1">
+            <div class="disp-item" id="disp-item-1" data-date="2026-05-20">
               <div class="disp-info">
                 <div class="disp-perihal">Undangan Rapat Koordinasi Kanwil</div>
                 <div class="disp-meta">Dari: Kanwil Sultra · Masuk: 20 Mei 2026 · Jalur: TU</div>
@@ -660,7 +718,7 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
               <span class="pill pill-new disp-status">Menunggu</span>
               <button class="btn-disposisi" onclick="openDisposisi(1)">Berikan Disposisi</button>
             </div>
-            <div class="disp-item" id="disp-item-2">
+            <div class="disp-item" id="disp-item-2" data-date="2026-05-20">
               <div class="disp-info">
                 <div class="disp-perihal">Permintaan Data Narapidana — Penelitian</div>
                 <div class="disp-meta">Dari: Universitas Halu Oleo · Masuk: 20 Mei 2026 · Jalur: TU</div>
@@ -668,7 +726,7 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
               <span class="pill pill-new disp-status">Menunggu</span>
               <button class="btn-disposisi" onclick="openDisposisi(2)">Berikan Disposisi</button>
             </div>
-            <div class="disp-item" id="disp-item-3">
+            <div class="disp-item" id="disp-item-3" data-date="2026-05-19">
               <div class="disp-info">
                 <div class="disp-perihal">Permohonan Cuti Pegawai — 3 Hari</div>
                 <div class="disp-meta">Dari: Budi Santoso · Masuk: 19 Mei 2026 · Jalur: TU</div>
@@ -676,7 +734,7 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
               <span class="pill pill-new disp-status">Menunggu</span>
               <button class="btn-disposisi" onclick="openDisposisi(3)">Berikan Disposisi</button>
             </div>
-            <div class="disp-item" id="disp-item-4">
+            <div class="disp-item" id="disp-item-4" data-date="2026-05-15">
               <div class="disp-info">
                 <div class="disp-perihal">Permohonan Kunjungan Keluarga WBP</div>
                 <div class="disp-meta">Dari: Keluarga WBP · Masuk: 15 Mei 2026 · Jalur: P2U</div>
@@ -684,7 +742,7 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
               <span class="pill pill-new disp-status">Menunggu</span>
               <button class="btn-disposisi" onclick="openDisposisi(4)">Berikan Disposisi</button>
             </div>
-            <div class="disp-item" id="disp-item-5">
+            <div class="disp-item" id="disp-item-5" data-date="2026-05-17">
               <div class="disp-info">
                 <div class="disp-perihal">Surat Rekomendasi Penelitian Mahasiswa</div>
                 <div class="disp-meta">Dari: Univ. Sultra · Masuk: 17 Mei 2026 · Jalur: TU</div>
@@ -701,20 +759,28 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
             <span class="search-icon">🔍</span>
             <input type="text" class="search-input" placeholder="Cari arsip berdasarkan perihal, pengirim, atau nomor..." oninput="searchArsip(this.value)" id="arsip-search">
           </div>
+          <div class="date-range-filter">
+            <span class="date-range-label">Dari Tanggal</span>
+            <input type="date" class="date-input" id="dari-arsip">
+            <span class="date-range-label">Sampai Tanggal</span>
+            <input type="date" class="date-input" id="sampai-arsip">
+            <button class="btn-primary btn-sm" onclick="applyDateFilter('arsip')">Terapkan Filter</button>
+            <button class="btn-reset" onclick="resetDateFilter('arsip')">Reset</button>
+          </div>
           <div class="dash-table-wrap">
             <table>
               <thead><tr><th>No Arsip</th><th>Perihal</th><th>Pengirim/Tujuan</th><th>Jenis</th><th>Tanggal</th><th>QR Code</th></tr></thead>
               <tbody id="tbl-arsip">
-                <tr><td>ARS-2026-001</td><td class="cell-bold">Surat Keputusan Pengangkatan Staf</td><td>Kanwil Kemenkumham</td><td>Masuk</td><td>19 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026001</span></td></tr>
-                <tr><td>ARS-2026-002</td><td class="cell-bold">Laporan Pembinaan WBP Bulan April</td><td>Kanwil Sultra</td><td>Keluar</td><td>18 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026002</span></td></tr>
-                <tr><td>ARS-2026-003</td><td class="cell-bold">Nota Dinas Koordinasi Program</td><td>Kasubsi Binadik</td><td>Masuk</td><td>18 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026003</span></td></tr>
-                <tr><td>ARS-2026-004</td><td class="cell-bold">Undangan Sosialisasi Peraturan</td><td>Ditjen Pemasyarakatan</td><td>Masuk</td><td>16 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026004</span></td></tr>
-                <tr><td>ARS-2026-005</td><td class="cell-bold">Surat Tugas Kunjungan Kerja</td><td>Ditjen Pemasyarakatan</td><td>Keluar</td><td>15 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026005</span></td></tr>
-                <tr><td>ARS-2026-006</td><td class="cell-bold">Nota Dinas Evaluasi Bulanan</td><td>Kasubsi Terkait</td><td>Keluar</td><td>15 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026006</span></td></tr>
-                <tr><td>ARS-2026-007</td><td class="cell-bold">Laporan Data Penghuni Per Bulan</td><td>Kanwil Kemenkumham</td><td>Keluar</td><td>14 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026007</span></td></tr>
-                <tr><td>ARS-2026-008</td><td class="cell-bold">Undangan Rapat Internal IMIPAS</td><td>Seluruh Pegawai</td><td>Keluar</td><td>13 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026008</span></td></tr>
-                <tr><td>ARS-2026-009</td><td class="cell-bold">Permohonan Anggaran Kegiatan</td><td>Kantor Pusat</td><td>Keluar</td><td>12 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026009</span></td></tr>
-                <tr><td>ARS-2026-010</td><td class="cell-bold">Surat Pengantar Dokumen WBP</td><td>Kejaksaan Negeri</td><td>Keluar</td><td>10 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026010</span></td></tr>
+                <tr data-date="2026-05-19"><td>ARS-2026-001</td><td class="cell-bold">Surat Keputusan Pengangkatan Staf</td><td>Kanwil Kemenkumham</td><td>Masuk</td><td>19 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026001</span></td></tr>
+                <tr data-date="2026-05-18"><td>ARS-2026-002</td><td class="cell-bold">Laporan Pembinaan WBP Bulan April</td><td>Kanwil Sultra</td><td>Keluar</td><td>18 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026002</span></td></tr>
+                <tr data-date="2026-05-18"><td>ARS-2026-003</td><td class="cell-bold">Nota Dinas Koordinasi Program</td><td>Kasubsi Binadik</td><td>Masuk</td><td>18 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026003</span></td></tr>
+                <tr data-date="2026-05-16"><td>ARS-2026-004</td><td class="cell-bold">Undangan Sosialisasi Peraturan</td><td>Ditjen Pemasyarakatan</td><td>Masuk</td><td>16 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026004</span></td></tr>
+                <tr data-date="2026-05-15"><td>ARS-2026-005</td><td class="cell-bold">Surat Tugas Kunjungan Kerja</td><td>Ditjen Pemasyarakatan</td><td>Keluar</td><td>15 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026005</span></td></tr>
+                <tr data-date="2026-05-15"><td>ARS-2026-006</td><td class="cell-bold">Nota Dinas Evaluasi Bulanan</td><td>Kasubsi Terkait</td><td>Keluar</td><td>15 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026006</span></td></tr>
+                <tr data-date="2026-05-14"><td>ARS-2026-007</td><td class="cell-bold">Laporan Data Penghuni Per Bulan</td><td>Kanwil Kemenkumham</td><td>Keluar</td><td>14 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026007</span></td></tr>
+                <tr data-date="2026-05-13"><td>ARS-2026-008</td><td class="cell-bold">Undangan Rapat Internal IMIPAS</td><td>Seluruh Pegawai</td><td>Keluar</td><td>13 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026008</span></td></tr>
+                <tr data-date="2026-05-12"><td>ARS-2026-009</td><td class="cell-bold">Permohonan Anggaran Kegiatan</td><td>Kantor Pusat</td><td>Keluar</td><td>12 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026009</span></td></tr>
+                <tr data-date="2026-05-10"><td>ARS-2026-010</td><td class="cell-bold">Surat Pengantar Dokumen WBP</td><td>Kejaksaan Negeri</td><td>Keluar</td><td>10 Mei 2026</td><td><span style="font-family:monospace;font-size:0.68rem;color:#9CA3AF">QR-A2026010</span></td></tr>
               </tbody>
             </table>
           </div>
@@ -770,7 +836,7 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
             </div>
             <div class="settings-group">
               <label class="settings-label">Instansi</label>
-              <input type="text" class="settings-input" value="IMIPAS Kendari" readonly style="background:#F9FAFB;color:#9CA3AF">
+              <input type="text" class="settings-input" value="IMIPAS" readonly style="background:#F9FAFB;color:#9CA3AF">
             </div>
             <button class="btn-primary btn-sm">Simpan Perubahan</button>
           </div>
@@ -829,7 +895,15 @@ footer{background:#1A1A1A;padding:1.75rem 5%;display:flex;justify-content:space-
   </div>
   <div class="cred-layout">
     <div class="profile-card">
-      <div class="profile-avatar">LA</div>
+      <div class="profile-avatar" style="overflow:hidden;padding:0;">
+        <img
+          src="../foto-la-anas.png.png"
+          alt="La Anas"
+          onerror="this.style.display='none'; document.getElementById('inisial-fallback').style.display='flex';"
+          style="width:100%; height:100%; object-fit:cover; object-position:top; filter:contrast(1.08) brightness(1.04); border-radius:50%;"
+        />
+        <div id="inisial-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:2rem; font-weight:700; color:#1C7A50;">LA</div>
+      </div>
       <div class="profile-name">La Anas — Muhamad Anas Kirsam Nur</div>
       <div class="profile-sub">
         ASN · Penata Keprotokolan<br>
@@ -1093,6 +1167,66 @@ document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
     if (e.target === this) closeModal(this.id);
   });
 });
+
+// Notification dropdown
+function toggleNotifDropdown(event) {
+  event.stopPropagation();
+  var dropdown = document.getElementById('notif-dropdown');
+  var badge = document.getElementById('notif-count-badge');
+  if (!dropdown) return;
+  var wasOpen = dropdown.classList.contains('open');
+  dropdown.classList.toggle('open');
+  if (!wasOpen && badge) badge.style.display = 'none';
+}
+
+document.addEventListener('click', function(e) {
+  var btn = document.getElementById('notif-btn');
+  var dropdown = document.getElementById('notif-dropdown');
+  if (dropdown && dropdown.classList.contains('open') && btn && !btn.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});
+
+// Date range filter
+function applyDateFilter(viewName) {
+  var dari = document.getElementById('dari-' + viewName);
+  var sampai = document.getElementById('sampai-' + viewName);
+  var dariVal = dari && dari.value ? dari.value : null;
+  var sampaiVal = sampai && sampai.value ? sampai.value : null;
+  var selector;
+  if (viewName === 'disposisi') {
+    selector = '#view-disposisi .disp-item';
+  } else {
+    var tblMap = {'surat-masuk':'tbl-surat-masuk','surat-keluar':'tbl-surat-keluar','arsip':'tbl-arsip'};
+    selector = '#' + tblMap[viewName] + ' tr';
+  }
+  document.querySelectorAll(selector).forEach(function(el) {
+    var d = el.dataset.date;
+    var show = true;
+    if (d) {
+      if (dariVal && d < dariVal) show = false;
+      if (sampaiVal && d > sampaiVal) show = false;
+    }
+    el.style.display = show ? '' : 'none';
+  });
+  if (dariVal || sampaiVal) showToast('Filter tanggal diterapkan');
+}
+
+function resetDateFilter(viewName) {
+  var dari = document.getElementById('dari-' + viewName);
+  var sampai = document.getElementById('sampai-' + viewName);
+  if (dari) dari.value = '';
+  if (sampai) sampai.value = '';
+  var selector;
+  if (viewName === 'disposisi') {
+    selector = '#view-disposisi .disp-item';
+  } else {
+    var tblMap = {'surat-masuk':'tbl-surat-masuk','surat-keluar':'tbl-surat-keluar','arsip':'tbl-arsip'};
+    selector = '#' + tblMap[viewName] + ' tr';
+  }
+  document.querySelectorAll(selector).forEach(function(el) { el.style.display = ''; });
+  showToast('Filter tanggal direset');
+}
 </script>
 </body>
 </html>
