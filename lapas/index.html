@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lapas Kendari — SIGAP Sultra</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --off-white: #f0ede6;
+  --green: #1c7a50;
+  --green-light: #2ab572;
+  --green-dim: rgba(28,122,80,0.12);
+  --green-border: rgba(28,122,80,0.35);
+  --white-10: rgba(240,237,230,0.1);
+  --white-20: rgba(240,237,230,0.2);
+  --white-40: rgba(240,237,230,0.4);
+  --white-60: rgba(240,237,230,0.6);
+  --white-80: rgba(240,237,230,0.8);
+  --amber: #EF9F27;
+  --amber-dim: rgba(186,117,23,0.15);
+  --amber-border: #BA7517;
+  --blue: #85B7EB;
+  --blue-dim: rgba(55,138,221,0.12);
+  --blue-border: #378ADD;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--off-white);
+  font-family: 'Instrument Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 2px,
+    rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.2rem 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--white-10);
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(24px);
+}
+
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  text-decoration: none;
+}
+
+.nav-cta {
+  font-size: 0.8rem;
+  background: var(--green);
+  color: var(--off-white);
+  padding: 0.55rem 1.25rem;
+  text-decoration: none;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--green-light); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10rem 5% 6rem;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  margin-bottom: 2rem;
+}
+
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1.08;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  max-width: 720px;
+}
+
+.hero-body {
+  font-size: 1.05rem;
+  color: var(--white-60);
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  max-width: 560px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pilot-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--amber-dim);
+  border: 1px solid var(--amber-border);
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+}
+
+/* Buttons */
+.btn-main {
+  background: var(--green);
+  color: var(--off-white);
+  padding: 0.85rem 1.8rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+  transition: background 0.2s;
+}
+.btn-main:hover { background: var(--green-light); }
+
+.btn-ghost {
+  border: 1px solid var(--white-20);
+  color: var(--off-white);
+  padding: 0.85rem 1.8rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
+  border-radius: 2px;
+  letter-spacing: 0.03em;
+  transition: border-color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--white-60); }
+
+/* ─── SECTION SHARED ─── */
+.sec {
+  padding: 6rem 5%;
+  border-bottom: 1px solid var(--white-10);
+}
+
+h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  margin-bottom: 1.5rem;
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  align-items: end;
+}
+
+.section-body {
+  font-size: 1rem;
+  color: var(--white-40);
+  line-height: 1.8;
+  font-weight: 300;
+  align-self: end;
+}
+
+/* ─── MASALAH ─── */
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.problem-card {
+  background: var(--black);
+  padding: 2rem;
+}
+
+.problem-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--white-20);
+  margin-bottom: 1rem;
+}
+
+.problem-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--off-white);
+}
+
+.problem-desc {
+  font-size: 0.85rem;
+  color: var(--white-40);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ─── ALUR SISTEM ─── */
+.flow-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+  border-bottom: none;
+}
+
+.flow-col {
+  background: var(--black);
+  padding: 2.5rem;
+}
+
+.flow-col-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--green-light);
+  margin-bottom: 2rem;
+}
+
+.flow-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-step {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.flow-step:last-child { border-bottom: none; }
+
+.step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--green-light);
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  width: 24px;
+  padding-top: 0.15rem;
+}
+
+.step-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--off-white);
+  margin-bottom: 0.3rem;
+}
+
+.step-desc {
+  font-size: 0.8rem;
+  color: var(--white-40);
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.flow-tracking {
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.tracking-icon {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.5rem;
+  color: var(--green-light);
+  flex-shrink: 0;
+}
+
+.tracking-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--off-white);
+  margin-bottom: 0.4rem;
+}
+
+.tracking-desc {
+  font-size: 0.85rem;
+  color: var(--white-60);
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+/* ─── MOCKUP DASHBOARD ─── */
+.dashboard-wrapper {
+  border: 1px solid var(--white-10);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0f0f0f;
+}
+
+.browser-bar {
+  background: rgba(255,255,255,0.04);
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.b-dot { width: 10px; height: 10px; border-radius: 50%; }
+.b-red { background: #ff5f56; }
+.b-yellow { background: #ffbd2e; }
+.b-green { background: #27c93f; }
+
+.browser-url {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  padding: 0.3rem 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--white-40);
+  letter-spacing: 0.05em;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  min-height: 520px;
+}
+
+/* Sidebar */
+.dash-sidebar {
+  background: #0d1f17;
+  border-right: 1px solid rgba(28,122,80,0.25);
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-sidebar-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--green-light);
+  padding: 0 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(28,122,80,0.2);
+  margin-bottom: 1rem;
+}
+
+.dash-sidebar-logo small {
+  display: block;
+  font-size: 0.55rem;
+  color: rgba(42,181,114,0.5);
+  margin-top: 0.2rem;
+  letter-spacing: 0.1em;
+}
+
+.dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.78rem;
+  color: rgba(240,237,230,0.4);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.dash-nav-item:hover {
+  color: var(--off-white);
+  background: rgba(28,122,80,0.08);
+}
+
+.dash-nav-item.active {
+  color: var(--green-light);
+  background: rgba(28,122,80,0.15);
+  border-left-color: var(--green-light);
+}
+
+.dash-nav-icon {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Main */
+.dash-main {
+  display: flex;
+  flex-direction: column;
+  background: #0f0f0f;
+}
+
+.dash-topbar {
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--white-10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-topbar-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--off-white);
+}
+
+.dash-user {
+  font-size: 0.75rem;
+  color: var(--white-40);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dash-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--green-light);
+  font-weight: 700;
+}
+
+.dash-content {
+  padding: 1.5rem;
+  flex: 1;
+  position: relative;
+}
+
+/* Stat cards */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: #0f0f0f;
+  padding: 1.1rem 1.25rem;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  color: var(--white-40);
+  margin-bottom: 0.4rem;
+  font-weight: 300;
+}
+
+.stat-value {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--off-white);
+  margin-bottom: 0.2rem;
+}
+
+.stat-sub {
+  font-size: 0.62rem;
+  color: var(--green-light);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Table */
+.dash-table-wrap {
+  border: 1px solid var(--white-10);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dash-table-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--white-10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-table-title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--off-white);
+}
+
+.dash-table-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--green-light);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dash-table-sub::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+thead tr { border-bottom: 1px solid var(--white-10); }
+
+thead th {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--white-40);
+  font-weight: 400;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--white-10);
+  transition: background 0.15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+tbody td {
+  padding: 0.75rem 1rem;
+  color: var(--white-60);
+  font-weight: 300;
+}
+
+.cell-perihal {
+  color: var(--off-white);
+  font-weight: 400;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.pill-live {
+  background: rgba(28,122,80,0.2);
+  border: 1px solid var(--green-border);
+  color: var(--green-light);
+}
+.pill-live::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green-light);
+  animation: pulse 2s infinite;
+}
+
+.pill-diproses {
+  background: var(--blue-dim);
+  border: 1px solid var(--blue-border);
+  color: var(--blue);
+}
+
+.pill-selesai {
+  background: rgba(42,181,114,0.1);
+  border: 1px solid rgba(42,181,114,0.3);
+  color: rgba(42,181,114,0.8);
+}
+
+.pill-baru {
+  background: var(--amber-dim);
+  border: 1px solid var(--amber-border);
+  color: var(--amber);
+}
+
+/* Notif panel */
+.notif-panel {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 210px;
+  background: #161616;
+  border: 1px solid var(--white-10);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+.notif-header {
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--white-10);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notif-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--white-60);
+}
+
+.notif-badge {
+  background: var(--green);
+  color: white;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.5rem;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-item {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--white-10);
+}
+
+.notif-item:last-child { border-bottom: none; }
+
+.notif-item-text {
+  font-size: 0.7rem;
+  color: var(--white-60);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.notif-time {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--white-20);
+  margin-top: 0.25rem;
+}
+
+/* ─── KREDENSIAL ─── */
+.cred-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.cred-quote {
+  font-size: 1rem;
+  color: var(--white-60);
+  font-weight: 300;
+  line-height: 1.85;
+  font-style: italic;
+  border-left: 2px solid var(--green);
+  padding-left: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.cred-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--white-10);
+  border: 1px solid var(--white-10);
+}
+
+.cred-fact {
+  background: var(--black);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.cred-fact-icon {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--green-light);
+  flex-shrink: 0;
+  width: 24px;
+  margin-top: 0.1rem;
+}
+
+.cred-fact-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--off-white);
+  margin-bottom: 0.25rem;
+}
+
+.cred-fact-sub {
+  font-size: 0.78rem;
+  color: var(--white-40);
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+/* Profile card */
+.profile-card {
+  border: 1px solid var(--green-border);
+  background: var(--green-dim);
+  padding: 2.5rem;
+  border-radius: 2px;
+}
+
+.profile-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(28,122,80,0.25);
+  border: 2px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green-light);
+  margin-bottom: 1.25rem;
+}
+
+.profile-role {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--green-light);
+  margin-bottom: 0.5rem;
+}
+
+.profile-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--off-white);
+  margin-bottom: 0.3rem;
+}
+
+.profile-sub {
+  font-size: 0.82rem;
+  color: var(--white-40);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.profile-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  font-size: 0.7rem;
+  border: 1px solid var(--green-border);
+  color: var(--green-light);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ─── FINAL CTA ─── */
+.final-cta {
+  padding: 9rem 5%;
+  text-align: center;
+  position: relative;
+  border-bottom: none;
+}
+
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 6rem;
+  background: linear-gradient(to bottom, var(--white-10), transparent);
+}
+
+.final-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--green-light);
+  margin-bottom: 2rem;
+}
+
+.final-cta h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.final-cta p {
+  font-size: 1rem;
+  color: var(--white-40);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+
+.final-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.contact-strip {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--white-20);
+  line-height: 2.2;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--white-10);
+  padding: 2rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--white-20);
+  letter-spacing: 0.1em;
+}
+
+.footer-right {
+  font-size: 0.75rem;
+  color: var(--white-20);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero > * {
+  animation: fadeUp 0.7s ease forwards;
+  opacity: 0;
+}
+.hero > *:nth-child(1) { animation-delay: 0.1s; }
+.hero > *:nth-child(2) { animation-delay: 0.25s; }
+.hero > *:nth-child(3) { animation-delay: 0.4s; }
+.hero > *:nth-child(4) { animation-delay: 0.55s; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .section-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .flow-cols { grid-template-columns: 1fr; }
+  .flow-tracking { flex-direction: column; gap: 1.5rem; }
+  .cred-layout { grid-template-columns: 1fr; }
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
+  .dashboard { grid-template-columns: 1fr; }
+  .dash-sidebar { display: none; }
+  .notif-panel { display: none; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">SIGAP ⬡ SYSTEM</a>
+  <a href="mailto:anas.kirsamnur@gmail.com" class="nav-cta">Hubungi Kami</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    IMPLEMENTASI 02 — PILOT PROJECT
+  </div>
+  <h1>Lapas Kendari,<br>dari manual<br>ke digital.</h1>
+  <p class="hero-body">
+    Sistem manajemen surat masuk dan keluar untuk seluruh pegawai —
+    dua jalur, satu platform, semua tertelusur.
+  </p>
+  <div class="hero-actions">
+    <a href="mailto:anas.kirsamnur@gmail.com" class="btn-main">Jadwalkan Demo →</a>
+    <a href="https://sigapsultra.id" target="_blank" class="btn-ghost">Lihat Sistem Live</a>
+    <span class="pilot-badge">PILOT</span>
+  </div>
+</section>
+
+<!-- MASALAH -->
+<section class="sec">
+  <div class="section-tag">// KONDISI SEBELUM SIGAP</div>
+  <div class="section-header">
+    <h2>Masalah yang<br>ada sekarang.</h2>
+    <p class="section-body">
+      Bukan kekurangan SDM — tapi sistem yang belum pernah disesuaikan
+      dengan kebutuhan alur kerja nyata di lapangan.
+    </p>
+  </div>
+  <div class="problems-grid">
+    <div class="problem-card">
+      <div class="problem-num">MASALAH 01</div>
+      <div class="problem-title">Surat masuk dua jalur tidak terkoordinasi</div>
+      <p class="problem-desc">
+        Surat datang lewat P2U (penjagaan fisik) dan langsung ke TU —
+        dua jalur berbeda yang tidak terintegrasi. Risiko duplikasi dan surat terlewat sangat tinggi.
+      </p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">MASALAH 02</div>
+      <div class="problem-title">Distribusi manual ke pegawai — lambat dan bisa terlewat</div>
+      <p class="problem-desc">
+        Setiap surat harus diantar langsung ke pegawai atau bagian terkait secara manual.
+        Tidak ada sistem yang memastikan distribusi sampai tepat waktu.
+      </p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">MASALAH 03</div>
+      <div class="problem-title">Tidak ada jejak digital — buku agenda bisa hilang</div>
+      <p class="problem-desc">
+        Seluruh pencatatan masih di buku agenda. Jika hilang atau rusak,
+        riwayat surat tidak bisa dipulihkan. Tidak ada cara menelusuri posisi surat secara cepat.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ALUR SISTEM -->
+<section class="sec">
+  <div class="section-tag">// SOLUSI SIGAP</div>
+  <div class="section-header">
+    <h2>Bagaimana Sigap<br>menyelesaikannya.</h2>
+    <p class="section-body">
+      Dua jalur surat yang sebelumnya berjalan sendiri-sendiri,
+      kini dikelola dalam satu platform yang terstruktur dan tertelusur penuh.
+    </p>
+  </div>
+
+  <div class="flow-cols">
+    <!-- Surat Masuk -->
+    <div class="flow-col">
+      <div class="flow-col-label">↓ ALUR SURAT MASUK</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">Pengirim kirim surat</div>
+            <p class="step-desc">Surat datang dari luar — lewat P2U (penjagaan) atau langsung ke TU. Kedua jalur masuk ke satu sistem, tidak ada yang terlewat.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">Input ke portal digital</div>
+            <p class="step-desc">Staf P2U atau TU input surat ke portal SIGAP. Tercatat otomatis dengan timestamp dan nomor agenda digital yang tidak bisa duplikat.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">Staf buat ringkasan (dibantu AI)</div>
+            <p class="step-desc">AI membantu menyusun draf ringkasan isi surat. Staf tetap memeriksa dan menyetujui sebelum diteruskan — bukan otomatis 100%.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">Disposisi pimpinan via QR</div>
+            <p class="step-desc">Pimpinan memberi disposisi langsung di sistem — terverifikasi dengan QR unik, autentik, dan tidak bisa dipalsukan.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">05</div>
+          <div>
+            <div class="step-title">Distribusi digital ke pegawai</div>
+            <p class="step-desc">Notifikasi dikirim otomatis ke pegawai terkait. Tidak perlu antar manual — pegawai langsung tahu ada surat untuk mereka.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Surat Keluar -->
+    <div class="flow-col" style="border-left:1px solid var(--white-10);">
+      <div class="flow-col-label">↑ ALUR SURAT KELUAR</div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-num">01</div>
+          <div>
+            <div class="step-title">Pegawai buat surat</div>
+            <p class="step-desc">Pegawai menyiapkan konsep surat dan mengunggahnya langsung ke portal SIGAP. Tidak perlu antre di TU untuk pengajuan.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">02</div>
+          <div>
+            <div class="step-title">Upload ke portal, diperiksa staf</div>
+            <p class="step-desc">AI membantu memeriksa kelengkapan format dan isi. Staf TU melakukan validasi akhir sebelum diteruskan ke pimpinan.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">03</div>
+          <div>
+            <div class="step-title">Persetujuan pimpinan</div>
+            <p class="step-desc">Pimpinan menyetujui surat dari dashboard. Tanda tangan digital terverifikasi dan terekam otomatis dalam log sistem.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">04</div>
+          <div>
+            <div class="step-title">Dikirim dan otomatis terarsip</div>
+            <p class="step-desc">Setelah disetujui, surat dikirim ke tujuan dan langsung masuk arsip digital — tersegmentasi dan dapat dicari kapan saja.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">05</div>
+          <div>
+            <div class="step-title">Status dapat dipantau pemohon</div>
+            <p class="step-desc">Penerima atau pemohon memantau status surat via kode tiket unik. Transparansi yang bisa dibuktikan — bukan janji lisan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tracking full-width -->
+  <div class="flow-tracking">
+    <div class="tracking-icon">⟳</div>
+    <div>
+      <div class="tracking-title">Tracking Real-Time — Berlaku untuk Kedua Alur</div>
+      <p class="tracking-desc">
+        Setiap surat — masuk maupun keluar — memiliki kode tiket unik.
+        Pemohon, pegawai, dan pimpinan dapat memantau posisi surat kapan saja dan dari mana saja.
+        Tidak ada lagi jawaban "masih diproses" tanpa kejelasan waktu dan posisi.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- MOCKUP DASHBOARD -->
+<section class="sec">
+  <div class="section-tag">// TAMPILAN SISTEM</div>
+  <div style="margin-bottom:3rem;">
+    <h2 style="margin-bottom:0.75rem;">Tampilan sistem.</h2>
+    <p style="font-size:1rem;color:var(--white-40);font-weight:300;max-width:560px;line-height:1.8;">
+      Antarmuka yang digunakan staf Lapas Kendari setiap hari — bukan konsep di atas kertas,
+      tapi dashboard yang sudah berjalan.
+    </p>
+  </div>
+
+  <div class="dashboard-wrapper">
+    <!-- Browser chrome -->
+    <div class="browser-bar">
+      <div class="b-dot b-red"></div>
+      <div class="b-dot b-yellow"></div>
+      <div class="b-dot b-green"></div>
+      <div class="browser-url">sigapsultra.id/lapas-kendari/dashboard</div>
+    </div>
+
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <div class="dash-sidebar">
+        <div class="dash-sidebar-logo">
+          SIGAP
+          <small>LAPAS KENDARI</small>
+        </div>
+        <div class="dash-nav-item active" onclick="setActive(this)">
+          <span class="dash-nav-icon">▣</span> Dashboard
+        </div>
+        <div class="dash-nav-item" onclick="setActive(this)">
+          <span class="dash-nav-icon">↓</span> Surat Masuk
+        </div>
+        <div class="dash-nav-item" onclick="setActive(this)">
+          <span class="dash-nav-icon">↑</span> Surat Keluar
+        </div>
+        <div class="dash-nav-item" onclick="setActive(this)">
+          <span class="dash-nav-icon">◈</span> Disposisi
+        </div>
+        <div class="dash-nav-item" onclick="setActive(this)">
+          <span class="dash-nav-icon">▦</span> Arsip
+        </div>
+        <div class="dash-nav-item" onclick="setActive(this)">
+          <span class="dash-nav-icon">◎</span> Laporan
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="dash-main">
+        <div class="dash-topbar">
+          <div class="dash-topbar-title">LAPAS KLAS IIA KENDARI — DASHBOARD</div>
+          <div class="dash-user">
+            <div class="dash-avatar">TU</div>
+            Kepala TU · Ahmad Fauzi
+          </div>
+        </div>
+
+        <div class="dash-content">
+          <!-- Stat cards -->
+          <div class="stat-cards">
+            <div class="stat-card">
+              <div class="stat-label">Surat Masuk Hari Ini</div>
+              <div class="stat-value">12</div>
+              <div class="stat-sub">↑ 3 dari kemarin</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Surat Keluar Bulan Ini</div>
+              <div class="stat-value">87</div>
+              <div class="stat-sub">Mei 2026</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Menunggu Disposisi</div>
+              <div class="stat-value">4</div>
+              <div class="stat-sub" style="color:var(--amber);">Perlu tindak lanjut</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Rata-rata Waktu Proses</div>
+              <div class="stat-value">1.2j</div>
+              <div class="stat-sub">↓ dari 6j sebelumnya</div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="dash-table-wrap">
+            <div class="dash-table-header">
+              <div class="dash-table-title">Surat Terbaru</div>
+              <div class="dash-table-sub">UPDATE REAL-TIME</div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>PERIHAL</th>
+                  <th>PENGIRIM</th>
+                  <th>JENIS</th>
+                  <th>TANGGAL</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="cell-perihal">Permohonan Cuti Pegawai — 3 Hari</td>
+                  <td>Budi Santoso</td>
+                  <td>Masuk</td>
+                  <td>20 Mei 2026</td>
+                  <td><span class="status-pill pill-live">Live</span></td>
+                </tr>
+                <tr>
+                  <td class="cell-perihal">Undangan Rapat Koordinasi Kanwil</td>
+                  <td>Kanwil Sultra</td>
+                  <td>Masuk</td>
+                  <td>20 Mei 2026</td>
+                  <td><span class="status-pill pill-diproses">Diproses</span></td>
+                </tr>
+                <tr>
+                  <td class="cell-perihal">Laporan Kegiatan Pembinaan Warga Binaan</td>
+                  <td>Sie Binadik</td>
+                  <td>Keluar</td>
+                  <td>19 Mei 2026</td>
+                  <td><span class="status-pill pill-selesai">Selesai</span></td>
+                </tr>
+                <tr>
+                  <td class="cell-perihal">Permintaan Data Narapidana — Penelitian</td>
+                  <td>Universitas Halu Oleo</td>
+                  <td>Masuk</td>
+                  <td>19 Mei 2026</td>
+                  <td><span class="status-pill pill-baru">Baru masuk</span></td>
+                </tr>
+                <tr>
+                  <td class="cell-perihal">Surat Tugas Kunjungan Kerja</td>
+                  <td>Kepala Lapas</td>
+                  <td>Keluar</td>
+                  <td>18 Mei 2026</td>
+                  <td><span class="status-pill pill-selesai">Selesai</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Notif panel -->
+          <div class="notif-panel">
+            <div class="notif-header">
+              <div class="notif-title">NOTIFIKASI</div>
+              <div class="notif-badge">3</div>
+            </div>
+            <div class="notif-item">
+              <div class="notif-item-text">Disposisi Kepala Lapas menunggu konfirmasi</div>
+              <div class="notif-time">2 menit lalu</div>
+            </div>
+            <div class="notif-item">
+              <div class="notif-item-text">Surat masuk baru dari Kanwil belum diproses</div>
+              <div class="notif-time">14 menit lalu</div>
+            </div>
+            <div class="notif-item">
+              <div class="notif-item-text">Laporan bulanan siap ditandatangani</div>
+              <div class="notif-time">1 jam lalu</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUKTI & KREDENSIAL -->
+<section class="sec">
+  <div class="section-tag">// SIAPA DI BALIK INI</div>
+  <div class="section-header">
+    <h2>Dibangun oleh orang<br>yang paham<br>dari dalam.</h2>
+    <p class="section-body">
+      Sigap lahir bukan dari vendor luar — tapi dari ASN yang merasakan masalah ini
+      setiap hari dan memutuskan membangunnya sendiri.
+    </p>
+  </div>
+
+  <div class="cred-layout">
+    <!-- Profile -->
+    <div class="profile-card">
+      <div class="profile-avatar">LA</div>
+      <div class="profile-role">PENGGAGAS & INOVATOR SISTEM</div>
+      <div class="profile-name">La Anas</div>
+      <p class="profile-sub">
+        Muhamad Anas Kirsam Nur<br>
+        ASN · Penata Keprotokolan<br>
+        Setda Prov. Sulawesi Tenggara<br>
+        Alumni IPDN Angkatan 32
+      </p>
+      <div class="profile-tags">
+        <span class="tag">GovTech</span>
+        <span class="tag">Laravel</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Birokrasi</span>
+        <span class="tag">HIPMI PT Sultra</span>
+      </div>
+    </div>
+
+    <!-- Quote + facts -->
+    <div>
+      <p class="cred-quote">
+        "Sigap lahir bukan dari vendor luar — tapi dari ASN yang merasakan masalah ini
+        setiap hari dan memutuskan membangunnya sendiri."
+      </p>
+      <div class="cred-facts">
+        <div class="cred-fact">
+          <div class="cred-fact-icon">✓</div>
+          <div>
+            <div class="cred-fact-title">Aktif di Pemprov Sultra</div>
+            <div class="cred-fact-sub">Implementasi pertama berjalan penuh di Setda Provinsi Sulawesi Tenggara</div>
+          </div>
+        </div>
+        <div class="cred-fact">
+          <div class="cred-fact-icon">↗</div>
+          <div>
+            <div class="cred-fact-title">Viral 40K+ Views Organik</div>
+            <div class="cred-fact-sub">Tanpa iklan berbayar — respons nyata dari ASN dan akademisi di seluruh Indonesia</div>
+          </div>
+        </div>
+        <div class="cred-fact">
+          <div class="cred-fact-icon">◈</div>
+          <div>
+            <div class="cred-fact-title">MOU Lintas Provinsi</div>
+            <div class="cred-fact-sub">Kabupaten Batu, Jawa Timur menginisiasi penjajakan adopsi sistem SIGAP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA PENUTUP -->
+<section class="final-cta">
+  <div class="final-eyebrow">// LANGKAH BERIKUTNYA</div>
+  <h2>Lapas Anda bisa<br>jadi yang berikutnya.</h2>
+  <p>
+    Demo 30 menit. Sistem nyata. Kami tunjukkan langsung
+    bagaimana Sigap bekerja di institusi Anda.
+  </p>
+  <div class="final-actions">
+    <a href="mailto:anas.kirsamnur@gmail.com" class="btn-main">Jadwalkan Demo →</a>
+    <a href="/" class="btn-ghost">Kembali ke Beranda</a>
+  </div>
+  <div class="contact-strip">
+    anas.kirsamnur@gmail.com · @anas.kirsamnur · sigap-partner.vercel.app
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">SIGAP SULTRA © 2026 — INOVASI DARI DALAM SISTEM</div>
+  <div class="footer-right">Pemerintah Provinsi Sulawesi Tenggara</div>
+</footer>
+
+<script>
+function setActive(el) {
+  document.querySelectorAll('.dash-nav-item').forEach(function(i) {
+    i.classList.remove('active');
+  });
+  el.classList.add('active');
+}
+</script>
+
+</body>
+</html>
