@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SIGAP — Masa Depan Pemerintahan Dimulai dari Sini</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Sans:wght@300;400;500;600&family=DM+Sans:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --black: #080808;
@@ -1559,53 +1559,69 @@ footer {
 
 <!-- ── DIGAGAS OLEH ── -->
 <section style="padding:6rem 5%;border-top:1px solid var(--white-10);">
-  <div class="eyebrow" style="margin-bottom:1.5rem;">
+  <div class="eyebrow" style="margin-bottom:2rem;">
     <span class="eyebrow-dot"></span>
     ORANG DI BALIK SISTEM
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
-    <div style="display:flex;align-items:flex-start;gap:2rem;">
-      <div style="flex-shrink:0;">
-        <div id="foto-penggagas" style="width:320px;max-height:480px;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;">
-          <img src="foto-la-anas.png" alt="La Anas" onerror="this.style.display='none';document.getElementById('inisial-la').style.display='flex';" style="width:100%;height:auto;max-height:480px;object-fit:cover;object-position:top center;filter:contrast(1.1) brightness(1.02) saturate(1.05);display:block;"/>
-          <div id="inisial-la" style="display:none;width:320px;height:426px;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:2rem;font-weight:700;color:var(--green-light);">LA</div>
-        </div>
-      </div>
-      <div style="flex:1;padding-top:0.5rem;">
-        <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--green-light);margin-bottom:0.6rem;">PENGGAGAS & INOVATOR</div>
-        <div style="font-size:1.2rem;font-weight:500;color:var(--off-white);margin-bottom:0.3rem;">La Anas</div>
-        <div style="font-size:0.8rem;color:var(--white-40);margin-bottom:0.2rem;">Muhamad Anas Kirsam Nur</div>
-        <div style="font-size:0.8rem;color:var(--white-40);margin-bottom:1.2rem;line-height:1.6;">
-          ASN · Penata Keprotokolan<br>
-          Setda Prov. Sulawesi Tenggara<br>
-          Alumni IPDN Angkatan 32 · HIPMI PT Sultra
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;">
-          <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">GovTech</span>
-          <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Laravel</span>
-          <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Gemini AI</span>
-          <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Claude</span>
-          <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Birokrasi</span>
-          <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.6rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">HIPMI PT Sultra</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:1.5rem;">
-          <a href="https://instagram.com/anas.kirsamnur" target="_blank" style="font-size:0.85rem;color:var(--green-light);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">📸 @anas.kirsamnur</a>
-          <a href="https://tiktok.com/@anass.kirsamnur" target="_blank" style="font-size:0.85rem;color:var(--green-light);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">🎵 @anass.kirsamnur</a>
-          <a href="mailto:anasm5201@gmail.com" style="font-size:0.85rem;color:var(--green-light);text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">✉️ anasm5201@gmail.com</a>
-        </div>
+  <div style="display:grid;grid-template-columns:45% 55%;gap:4rem;align-items:start;">
+
+    <!-- KOLOM KIRI: Foto -->
+    <div>
+      <div id="foto-penggagas" style="border-radius:4px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.5);">
+        <img src="foto-la-anas.png" alt="La Anas"
+          onerror="this.style.display='none';document.getElementById('inisial-la').style.display='flex';"
+          style="width:100%;height:600px;object-fit:cover;object-position:top center;filter:contrast(1.1) brightness(1.02);display:block;"/>
+        <div id="inisial-la" style="display:none;width:100%;height:600px;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:3rem;font-weight:700;color:var(--green-light);background:var(--green-dim);">LA</div>
       </div>
     </div>
-    <div>
-      <h2 style="margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.02em;">Digagas dari dalam.<br>Bukan dari luar.</h2>
-      <p style="font-size:1rem;color:var(--white-40);font-weight:300;line-height:1.85;margin-bottom:2rem;">
-        SIGAP lahir bukan dari vendor yang datang menawarkan solusi —
-        tapi dari seorang ASN yang merasakan sendiri masalahnya setiap hari,
-        lalu memutuskan untuk membangunnya sendiri dari dalam sistem.
+
+    <!-- KOLOM KANAN: Konten -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem;padding-top:0.5rem;">
+
+      <!-- Headline -->
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--green-light);margin-bottom:0.75rem;">PENGGAGAS &amp; INOVATOR</div>
+        <h2 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3rem);text-transform:uppercase;letter-spacing:-0.01em;color:var(--off-white);line-height:1.05;margin:0;">DIGAGAS DARI DALAM.<br>BUKAN DARI LUAR.</h2>
+      </div>
+
+      <!-- Paragraf -->
+      <p style="font-size:1rem;color:var(--white-60);font-weight:300;line-height:1.8;margin:0;">
+        SIGAP lahir bukan dari vendor yang datang menawarkan solusi — tapi dari seorang ASN yang merasakan sendiri masalahnya setiap hari, lalu memutuskan untuk membangunnya sendiri dari dalam sistem.
       </p>
-      <p style="font-size:0.9rem;color:var(--white-40);font-weight:300;line-height:1.85;font-style:italic;">
-        "Perubahan paling jujur dimulai dari orang yang paling tahu masalahnya —
-        dan memilih untuk tinggal dan memperbaikinya, bukan pergi."
+
+      <!-- Quote -->
+      <p style="font-size:0.9rem;color:var(--white-40);font-style:italic;line-height:1.75;margin:0;">
+        "Perubahan paling jujur dimulai dari orang yang paling tahu masalahnya — dan memilih untuk tinggal dan memperbaikinya, bukan pergi."
       </p>
+
+      <!-- Divider -->
+      <div style="height:1px;background:var(--white-10);"></div>
+
+      <!-- Profil info -->
+      <div>
+        <div style="font-size:1.1rem;font-weight:600;color:var(--off-white);margin-bottom:0.3rem;">La Anas</div>
+        <div style="font-size:0.8rem;color:var(--white-40);line-height:1.6;">
+          Muhamad Anas Kirsam Nur · ASN · Penata Keprotokolan Setda Prov. Sultra · IPDN Angkatan 32 · HIPMI PT Sultra
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+        <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.7rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">GovTech</span>
+        <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.7rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Laravel</span>
+        <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.7rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Gemini AI</span>
+        <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.7rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Claude</span>
+        <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.7rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">Birokrasi</span>
+        <span style="font-size:0.7rem;border:1px solid var(--green-border);color:var(--green-light);padding:0.2rem 0.7rem;border-radius:2px;font-family:'Space Mono',monospace;letter-spacing:0.05em;">HIPMI PT Sultra</span>
+      </div>
+
+      <!-- Sosmed -->
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <a href="https://instagram.com/anas.kirsamnur" target="_blank" style="font-size:0.8rem;color:var(--green-light);text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">📸 @anas.kirsamnur</a>
+        <a href="https://tiktok.com/@anass.kirsamnur" target="_blank" style="font-size:0.8rem;color:var(--green-light);text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">🎵 @anass.kirsamnur</a>
+        <a href="mailto:anasm5201@gmail.com" style="font-size:0.8rem;color:var(--green-light);text-decoration:none;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">✉ anasm5201@gmail.com</a>
+      </div>
+
     </div>
   </div>
 </section>
